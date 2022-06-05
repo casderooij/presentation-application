@@ -1,4 +1,4 @@
-import Navigation from "./navigation";
+import Navigation from "./Navigation";
 
 type Props = {
   children: JSX.Element;
