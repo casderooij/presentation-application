@@ -10,7 +10,7 @@ export default function Window() {
 
   return (
     <animated.div
-      className="absolute w-24 h-24 bg-pink-300 cursor-pointer top-6 left-6 touch-none"
+      className="absolute w-48 h-48 bg-white border-2 border-black cursor-pointer rounded-3xl top-6 left-6 touch-none"
       {...bind()}
       style={{ x, y }}
     ></animated.div>
