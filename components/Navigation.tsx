@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Navigation() {
+const Navigation: React.FC = () => {
   return (
     <nav className="absolute w-full h-full p-4">
       <ul className="flex flex-col items-end justify-between h-full">
@@ -19,4 +19,6 @@ export default function Navigation() {
       </ul>
     </nav>
   );
-}
+};
+
+export default Navigation;

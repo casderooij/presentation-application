@@ -1,7 +1,7 @@
 import { animated, useSpring } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 
-export default function Window() {
+const Window: React.FC = () => {
   const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
 
   const bind = useDrag(({ offset: [ox, oy] }) => {
@@ -15,4 +15,6 @@ export default function Window() {
       style={{ x, y }}
     ></animated.div>
   );
-}
+};
+
+export default Window;
