@@ -12,6 +12,8 @@ const Home: NextPage = () => {
       </Head>
 
       <Window />
+      <Window />
+      <Window />
     </>
   );
 };
