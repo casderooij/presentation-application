@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useAtom } from "jotai";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Window from "../components/Window";
+import { readWindowsAtom } from "../lib/windowStore";
 
 const Home: NextPage = () => {
-  const [currentWindows, setCurrentWindows] = useState([{}, {}]);
+  const [windowArray] = useAtom(readWindowsAtom);
 
   return (
     <>
@@ -12,8 +13,8 @@ const Home: NextPage = () => {
         <title>Cas de Rooij</title>
       </Head>
 
-      {currentWindows.map((w, i) => (
-        <Window key={i} />
+      {windowArray.map((window, i) => (
+        <Window window={window} key={i} />
       ))}
     </>
   );
