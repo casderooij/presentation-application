@@ -1,13 +1,15 @@
 import { animated, useSpring } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { useAtom } from "jotai";
-import { IWindow } from "../lib/windowStore";
+import { IWindow, focussedWindowAtom } from "../lib/windowStore";
 
 type Props = {
   window: IWindow;
 };
 
 const Window: React.FC<Props> = ({ window }) => {
+  const [_, setWindowToFocus] = useAtom(focussedWindowAtom);
+
   const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
 
   const bind = useDrag(({ offset: [ox, oy] }) => {
@@ -16,6 +18,7 @@ const Window: React.FC<Props> = ({ window }) => {
 
   function onFocusHandler() {
     console.log("focus:::", window.id);
+    setWindowToFocus(window);
   }
 
   return (
@@ -25,7 +28,9 @@ const Window: React.FC<Props> = ({ window }) => {
       {...bind()}
       style={{ x, y }}
       onFocus={onFocusHandler}
-    ></animated.div>
+    >
+      {window.id}
+    </animated.div>
   );
 };
 

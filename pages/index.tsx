@@ -2,10 +2,10 @@ import { useAtom } from "jotai";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Window from "../components/Window";
-import { readWindowsAtom } from "../lib/windowStore";
+import { windowListAtom } from "../lib/windowStore";
 
 const Home: NextPage = () => {
-  const [windowArray] = useAtom(readWindowsAtom);
+  const [windowArray] = useAtom(windowListAtom);
 
   return (
     <>
