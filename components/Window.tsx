@@ -1,7 +1,7 @@
 import { animated, useSpring } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { useAtom } from "jotai";
-import { IWindow, reorderWindowToTop } from "../lib/windowStore";
+import { IWindow } from "../lib/windowStore";
 
 type Props = {
   window: IWindow;
