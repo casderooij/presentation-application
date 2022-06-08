@@ -1,11 +1,11 @@
-import { useAtom } from "jotai";
-import type { NextPage } from "next";
-import Head from "next/head";
-import Window from "../components/Window";
-import { windowListAtom } from "../lib/windowStore";
+import { useAtom } from 'jotai'
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import Window from '@/components/Window'
+import { windowListAtom } from '@/lib/windowStore'
 
 const Home: NextPage = () => {
-  const [windowArray] = useAtom(windowListAtom);
+  const [windowArray] = useAtom(windowListAtom)
 
   return (
     <>
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
         <Window window={window} key={i} />
       ))}
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

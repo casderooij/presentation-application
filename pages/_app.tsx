@@ -1,8 +1,8 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import { Provider as JotaiProvider } from "jotai";
-import Head from "next/head";
-import Layout from "../components/Layout";
+import '../styles/globals.css'
+import type { AppProps } from 'next/app'
+import { Provider as JotaiProvider } from 'jotai'
+import Head from 'next/head'
+import Layout from '@/components/Layout'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </Layout>
       </JotaiProvider>
     </>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp
