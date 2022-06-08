@@ -4,10 +4,10 @@ import { useAtom } from 'jotai'
 import { IWindow, focussedWindowAtom } from '@/lib/windowStore'
 
 type Props = {
-  window: IWindow
+  data: IWindow
 }
 
-const Window: React.FC<Props> = ({ window }) => {
+const Window: React.FC<Props> = ({ data: window }) => {
   const [_, setWindowToFocus] = useAtom(focussedWindowAtom)
 
   const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }))
