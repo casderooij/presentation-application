@@ -1,10 +1,10 @@
 import Navigation from "./Navigation";
 
 type Props = {
-  children: JSX.Element;
+  children: React.ReactNode;
 };
 
-export default function Layout({ children }: Props) {
+const Layout: React.FC<Props> = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navigation />
@@ -12,4 +12,6 @@ export default function Layout({ children }: Props) {
       <main className="flex-1 bg-slate-400">{children}</main>
     </div>
   );
-}
+};
+
+export default Layout;
