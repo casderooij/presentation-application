@@ -11,12 +11,27 @@ export function windowIn(
     opacity = 0
   }
 ) {
-  node.style.transform = `translate(${end.x * 100}vw, ${end.y * 100}vh)`
-
   const style = getComputedStyle(node)
   const target_opacity = +style.opacity
-  const transform = style.transform === 'none' ? '' : style.transform
 
+  const halfWidth = parseInt(style.width, 10) / 2
+  const halfHeight = parseInt(style.height, 10) / 2
+
+  let startX: number, startY: number
+
+  const parent = node.parentElement
+  const pStyle = getComputedStyle(parent!)
+  const pWidth = parseInt(pStyle.width, 10)
+  const pHeight = parseInt(pStyle.height, 10)
+
+  startX = pWidth * start.x
+  startY = pHeight * start.y
+
+  const endXinVw = (pWidth * end.x - halfWidth) / (pWidth / 100)
+  const endYinVh = (pHeight * end.y - halfHeight) / (pHeight / 100)
+
+  node.style.transform = `translate(${endXinVw}vw, ${endYinVh}vh)`
+  const transform = style.transform === 'none' ? '' : style.transform
   const od = target_opacity * (1 - opacity)
 
   return {
@@ -24,10 +39,10 @@ export function windowIn(
     duration,
     easing,
     css: (t: number, u: number) => `
-        opacity: ${target_opacity - od * u};
-        transform: ${transform} translate(${(1 - t) * start.x * 100}%, ${
-      (1 - t) * start.y * 100
-    }%);
-      `
+      opacity: ${target_opacity - od * u};
+      transform:
+        ${transform}
+        translate(${(1 - t) * startX}px, ${(1 - t) * startY}px);
+    `
   }
 }

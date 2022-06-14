@@ -4,12 +4,24 @@
 
   import { DragGesture } from '@use-gesture/vanilla'
 
-  /**
-   * TODO: size as percentages [0.75, 1.2]
-   */
-  type Size = [number, number]
+  export let ratio = '1 / 1'
+  export let minWidth = 100
+  export let maxWidth = 400
 
-  export let size: Size
+  const minViewPort = 320
+  const maxViewPort = 1200
+
+  let widthClamp: string
+
+  $: {
+    const variablePart = (maxWidth - minWidth) / (maxViewPort - minViewPort)
+    const constant = parseFloat(
+      (maxWidth - maxViewPort * variablePart).toFixed(3)
+    )
+    widthClamp = `clamp(${minWidth}px,${
+      constant ? ` ${constant}rem +` : ''
+    } ${parseFloat((100 * variablePart).toFixed(2))}vw, ${maxWidth}px)`
+  }
 
   let isActive = false
   let coords = spring<{ x: number; y: number; opacity?: number }>(
@@ -25,13 +37,10 @@
   let element: HTMLElement
 
   onMount(() => {
-    const gesture = new DragGesture(
-      element,
-      ({ active, offset: [ox, oy], initial }) => {
-        isActive = active
-        coords.set({ x: ox, y: oy })
-      }
-    )
+    const gesture = new DragGesture(element, ({ active, offset: [ox, oy] }) => {
+      isActive = active
+      coords.set({ x: ox, y: oy })
+    })
 
     return () => {
       gesture.destroy()
@@ -41,6 +50,10 @@
 
 <div
   bind:this={element}
-  class="bg-blue-500 touch-none"
-  style="width: {size[0]}px; height: {size[1]}px; transform: translate({$coords.x}px, {$coords.y}px);"
+  class="bg-blue-500 touch-none cursor-move"
+  style="
+    width: {widthClamp};
+    aspect-ratio: {ratio};
+    transform: translate({$coords.x}px, {$coords.y}px);
+  "
 />
