@@ -50,5 +50,5 @@
 <div
   bind:this={element}
   class="bg-blue-500 touch-none"
-  style="width: {size[0]}px; height: {size[1]}px; transform: translate3d({$coords.x}px, {$coords.y}px, 0);"
+  style="width: {size[0]}px; height: {size[1]}px; transform: translate({$coords.x}px, {$coords.y}px);"
 />

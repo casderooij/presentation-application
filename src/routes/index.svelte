@@ -9,7 +9,7 @@
 <Container>
   <input type="checkbox" bind:checked={show} class="absolute right-4" />
   {#if show}
-    <TransitionWindow from={{ x: -20, y: -40 }} to={{ x: 30, y: 100 }}>
+    <TransitionWindow from={{ x: -1.2, y: -1.8 }} to={{ x: 0.5, y: 0.5 }}>
       <Window size={[200, 200]} />
     </TransitionWindow>
   {/if}
