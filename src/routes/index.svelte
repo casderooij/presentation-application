@@ -1,14 +1,32 @@
 <script lang="ts">
-  import Box from '$lib/components/Box.svelte'
-  import Container from '$lib/components/Container.svelte'
+  /**
+   * Multiple windows with random from - to data
+   * Delay each window (by index)
+   * Maybe reset windows when client resizes window (throttle)
+   */
 
-  const items = [{ id: 10 }, { id: 4 }, { id: 1 }, { id: 12 }]
+  import TransitionWindow from '$lib/components/TransitionWindow.svelte'
+  import Window from '$lib/components/Window.svelte'
+
+  let show = false
+  let position = {
+    start: {
+      x: -0.2,
+      y: -0.1
+    },
+    end: {
+      x: 0.5,
+      y: 0.5
+    }
+  }
 </script>
 
-<div class="container">
-  <Container>
-    {#each items as item}
-      <Box />
-    {/each}
-  </Container>
+<div class="bg-red-300 h-screen relative overflow-hidden">
+  <input type="checkbox" bind:checked={show} class="absolute right-4" />
+
+  {#if show}
+    <TransitionWindow {position}>
+      <Window ratio="2 / 2" minWidth={100} maxWidth={400} />
+    </TransitionWindow>
+  {/if}
 </div>
