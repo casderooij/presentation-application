@@ -1,9 +1,3 @@
-<div>
+<div class="bg-red-300 h-screen p-4">
   <slot />
 </div>
-
-<style>
-  div {
-    padding-top: 20px;
-  }
-</style>

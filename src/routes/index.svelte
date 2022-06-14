@@ -1,14 +1,16 @@
 <script lang="ts">
-  import Box from '$lib/components/Box.svelte'
   import Container from '$lib/components/Container.svelte'
+  import TransitionWindow from '$lib/components/TransitionWindow.svelte'
+  import Window from '$lib/components/Window.svelte'
 
-  const items = [{ id: 10 }, { id: 4 }, { id: 1 }, { id: 12 }]
+  let show = false
 </script>
 
-<div class="container">
-  <Container>
-    {#each items as item}
-      <Box />
-    {/each}
-  </Container>
-</div>
+<Container>
+  <input type="checkbox" bind:checked={show} class="absolute right-4" />
+  {#if show}
+    <TransitionWindow from={{ x: -20, y: -40 }} to={{ x: 30, y: 100 }}>
+      <Window size={[200, 200]} />
+    </TransitionWindow>
+  {/if}
+</Container>
