@@ -1,23 +1,15 @@
 <script lang="ts">
-  /**
-   * Window has a starting position (relative to window size)
-   * Window has a width and height
-   * Window has meta data (image, name, tags)
-   * Window has drag functionality
-   */
-
   import { onMount } from 'svelte'
   import { spring } from 'svelte/motion'
 
   import { DragGesture } from '@use-gesture/vanilla'
 
+  /**
+   * TODO: size as percentages [0.75, 1.2]
+   */
   type Size = [number, number]
-  export let size: Size
 
-  const metaData = {
-    name: 'test 1',
-    tags: ['project', 'web']
-  }
+  export let size: Size
 
   let isActive = false
   let coords = spring<{ x: number; y: number; opacity?: number }>(
