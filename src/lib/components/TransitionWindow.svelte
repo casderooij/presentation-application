@@ -6,11 +6,16 @@
     start: { x: number; y: number }
     end: { x: number; y: number }
   }
+  export let index: number
 </script>
 
 <div
   class="absolute"
-  in:windowIn={{ start: position.start, end: position.end }}
+  in:windowIn={{
+    start: position.start,
+    end: position.end,
+    delay: (index + 1) * 100
+  }}
   out:fade
 >
   <slot />
