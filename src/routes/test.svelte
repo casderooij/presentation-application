@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { createCurve } from '$lib/utils'
+
   let width: number, height: number
 
   function makeCurve() {
@@ -28,9 +30,13 @@
 
   let divSize = 100
 
+  let items: any[]
   $: {
-    points = makeCurve()
-    console.log({ width, height })
+    const curve = createCurve(width, height)
+    items = new Array(5)
+    for (let i = 0; i < items.length; i++) {
+      items[i] = curve(i / 0.2 - 1.8)
+    }
   }
 </script>
 
@@ -40,11 +46,11 @@
 <svelte:window bind:innerWidth={width} bind:innerHeight={height} />
 
 <div class="w-full h-screen">
-  {#each points as point}
+  {#each items as point}
     <div
       class="absolute bg-red-500 rounded-3xl shadow-2xl"
-      style="width: {divSize}px; height: {divSize}px; transform: translate({point.x -
-        divSize / 2}px, {point.y - divSize / 2}px);"
+      style="width: {divSize}px; height: {divSize}px; transform: translate({point[0] -
+        divSize / 2}px, {point[1] - divSize / 2}px);"
     />
   {/each}
 </div>
