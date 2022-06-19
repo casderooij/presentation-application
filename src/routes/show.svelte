@@ -22,14 +22,13 @@
 
 <svelte:window bind:innerWidth={width} bind:innerHeight={height} />
 
-<input type="checkbox" bind:checked={mounted} />
+<input class="absolute" type="checkbox" bind:checked={mounted} />
 
 {#if mounted}
   {#each windows as window}
     <TransitionWindow
       target={window.position.target}
       offset={window.position.offset}
-      size={window.size}
     >
       <Window size={window.size} />
     </TransitionWindow>
