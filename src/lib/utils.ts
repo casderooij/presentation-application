@@ -1,27 +1,94 @@
-export const createCurve = (width: number, height: number) => {
+import { quintOut } from 'svelte/easing'
+import type { FlyParams, TransitionConfig } from 'svelte/transition'
+
+export const makeWindows = (
+  projects: any[],
+  curveFunction: (theta: number) => {
+    target: { x: number; y: number }
+    size: number
+  }
+): any[] => {
+  const windowArray = projects.map((project, index) => {
+    const { target, size } = curveFunction(index + 1 / projects.length)
+    const offset = { x: 100, y: target.y }
+    return {
+      project,
+      position: {
+        target,
+        offset
+      },
+      size
+    }
+  })
+
+  return windowArray
+}
+
+export const makeCurve = (width: number, height: number) => {
   return (theta: number) => {
-    const padding = 140
+    const size = 100
+    const padding = size + 40
     const w = width / 2
     const h = height / 2
     const rx = (width - padding) / 2
     const ry = (height - padding) / 2
 
-    return [
-      +(w + rx * Math.cos(theta * 1)).toFixed(1),
-      +(h + ry * Math.sin(theta * 0.4)).toFixed(1)
-    ]
+    return {
+      target: {
+        x: Math.round(w + rx * Math.cos(theta * 1)),
+        y: Math.round(h + ry * Math.sin(theta * 1.5))
+      },
+      size
+    }
   }
 }
 
-export const lerp = (v1: number, v2: number, t: number) => {
-  return v1 * (1 - t) + v2 * t
+interface WindowFlyParams extends FlyParams {
+  offset: {
+    x: number
+    y: number
+  }
+  target: {
+    x: number
+    y: number
+  }
+  size: number
 }
 
-export const lerpValues = (v1: number[], v2: number[], t: number) => {
-  const len = Math.min(v1.length, v2.length)
-  const out = new Array(len)
-  for (let i = 0; i < len; i++) {
-    out[i] = lerp(v1[i], v2[i], t)
+export const windowFly = (
+  node: HTMLElement,
+  {
+    delay,
+    duration = 10000,
+    easing = quintOut,
+    offset,
+    target,
+    size,
+    opacity = 0
+  }: WindowFlyParams
+): TransitionConfig => {
+  const style = getComputedStyle(node)
+  const targetOpacity = +style.opacity
+  const halfSize = size / 2
+
+  node.style.transform = `matrix(1, 0, 0, 1, ${target.x - halfSize}, ${
+    target.y - halfSize
+  })`
+  const transform = style.transform === 'none' ? '' : style.transform
+  offset.x -= halfSize
+  offset.y -= halfSize
+
+  const od = targetOpacity * (1 - opacity)
+
+  return {
+    delay,
+    duration,
+    easing,
+    css: (t, u) => `
+        transform: ${transform} translate(${(1 - t) * offset.x}px, ${
+      (1 - t) * offset.y
+    }px);
+        opacity: ${targetOpacity - od * u}
+      `
   }
-  return out
 }

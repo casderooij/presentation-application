@@ -1,7 +1,12 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { createCurve } from '$lib/utils'
+  import TransitionWindow from '$lib/components/TransitionWindow.svelte'
 
   let width: number, height: number
+  let mounted = false
+
+  onMount(() => (mounted = true))
 
   function makeCurve() {
     const points = []
@@ -21,12 +26,10 @@
         h -
         ry *
           Math.sin(theta * (Math.floor(Math.random() * 3) + 1) + Math.random())
-      points.push({ x: +x.toFixed(1), y: +y.toFixed(1) })
+      points.push({ x: Math.round(x), y: Math.round(y) })
     }
     return points
   }
-
-  let points: any[] = []
 
   let divSize = 100
 
@@ -37,6 +40,7 @@
     for (let i = 0; i < items.length; i++) {
       items[i] = curve(i / 0.2 - 1.8)
     }
+    console.log(items)
   }
 </script>
 
