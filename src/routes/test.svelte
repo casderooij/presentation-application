@@ -1,7 +1,12 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { createCurve } from '$lib/utils'
+  import TransitionWindow from '$lib/components/TransitionWindow.svelte'
 
   let width: number, height: number
+  let mounted = false
+
+  onMount(() => (mounted = true))
 
   function makeCurve() {
     const points = []
@@ -25,8 +30,6 @@
     }
     return points
   }
-
-  let points: any[] = []
 
   let divSize = 100
 

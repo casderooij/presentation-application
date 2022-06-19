@@ -1,16 +1,19 @@
 <script lang="ts">
-  import { windowIn } from '$lib/window'
   import { fade } from 'svelte/transition'
+  import { windowFly } from '$lib/utils'
 
-  export let position: {
-    start: { x: number; y: number }
-    end: { x: number; y: number }
-  }
+  export let target: { x: number; y: number }
+  export let offset: { x: number; y: number }
+  export let size: number
 </script>
 
 <div
   class="absolute"
-  in:windowIn={{ start: position.start, end: position.end }}
+  in:windowFly={{
+    offset,
+    target,
+    size
+  }}
   out:fade
 >
   <slot />
