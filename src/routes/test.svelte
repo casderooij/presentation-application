@@ -21,7 +21,7 @@
         h -
         ry *
           Math.sin(theta * (Math.floor(Math.random() * 3) + 1) + Math.random())
-      points.push({ x: +x.toFixed(1), y: +y.toFixed(1) })
+      points.push({ x: Math.round(x), y: Math.round(y) })
     }
     return points
   }
@@ -37,6 +37,7 @@
     for (let i = 0; i < items.length; i++) {
       items[i] = curve(i / 0.2 - 1.8)
     }
+    console.log(items)
   }
 </script>
 
