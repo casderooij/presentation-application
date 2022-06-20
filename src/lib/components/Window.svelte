@@ -51,7 +51,7 @@
 
 <div
   bind:this={element}
-  class="bg-white border-2 border-black touch-none cursor-move"
+  class="bg-white border border-black touch-none cursor-move"
   style="
     width: {size}px;
     aspect-ratio: {ratio};

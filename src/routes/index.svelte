@@ -1,7 +1,18 @@
 <script lang="ts">
   import WindowGroup from '$lib/components/WindowGroup.svelte'
 
-  const projects = [{ title: '1' }, { title: '2' }, { title: '3' }]
+  const projects = [
+    { title: '1' },
+    { title: '2' },
+    { title: '3' },
+    { title: '3' },
+    { title: '3' },
+    { title: '3' },
+    { title: '3' },
+    { title: '3' },
+    { title: '3' },
+    { title: '3' }
+  ]
 
   let width: number, height: number
   let mounted = false
