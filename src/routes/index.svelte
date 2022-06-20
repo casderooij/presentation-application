@@ -23,5 +23,5 @@
 <input type="checkbox" bind:checked={mounted} />
 
 {#if mounted}
-  <WindowGroup {projects} {width} {height} />
+  <WindowGroup {projects} viewport={{ width, height }} />
 {/if}
