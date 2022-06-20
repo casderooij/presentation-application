@@ -4,18 +4,18 @@
 
   export let target: { x: number; y: number }
   export let offset: { x: number; y: number }
+  export let index: number
 </script>
 
 <div
   class="absolute"
   in:fly={{
     x: offset.x,
-    y: offset.y
+    y: offset.y,
+    delay: 200 + index * 100
   }}
   out:fade
-  style="
-    transform: translate({target.x}px, {target.y}px);
-  "
+  style="transform: translate({target.x}px, {target.y}px);"
 >
   <slot />
 </div>
