@@ -50,8 +50,12 @@ export const makeCurve = ({ width, height }: Viewport) => {
     const rx = (width - padding) / 2
     const ry = (height - padding) / 2
 
-    const x = Math.round(w + rx * Math.cos(theta * 1.1) - size / 2)
-    const y = Math.round(h + ry * Math.sin(theta * 1.2) - size / 2)
+    const x = Math.round(
+      w + rx * Math.cos(theta * (Math.random() * 40) - 20) - size / 2
+    )
+    const y = Math.round(
+      h + ry * Math.sin(theta * (Math.random() * 40) - 20) - size / 2
+    )
 
     return {
       target: { x, y },
