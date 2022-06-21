@@ -10,6 +10,20 @@ export type Viewport = {
   height: number
 }
 
+export const getWindowSizes = () => {
+  if (typeof window === 'undefined') return
+  const mobile = window.matchMedia('(max-width: 640px)')
+  const tablet = window.matchMedia('(max-width: 1280px)')
+
+  if (mobile.matches) {
+    return { min: 100, max: 200 }
+  } else if (tablet.matches) {
+    return { min: 200, max: 300 }
+  } else {
+    return { min: 300, max: 100 }
+  }
+}
+
 export const makeWindows = (
   projects: Project[],
   viewport: Viewport,
@@ -41,10 +55,9 @@ export const makeWindows = (
   return windowArray
 }
 
-export const makeCurve = ({ width, height }: Viewport) => {
+export const makeCurve = ({ width, height }: Viewport, size: number) => {
   return (theta: number) => {
-    const size = 100
-    const padding = size * 2
+    const padding = size * 1.5
     const w = width / 2
     const h = height / 2
     const rx = (width - padding) / 2
