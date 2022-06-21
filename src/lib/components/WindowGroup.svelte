@@ -5,8 +5,9 @@
 
   export let viewport: Viewport
   export let projects: any[]
+  export let size: number
 
-  const curveFunc = makeCurve(viewport)
+  const curveFunc = makeCurve(viewport, size)
   const windows = makeWindows(projects, viewport, curveFunc)
 </script>
 
