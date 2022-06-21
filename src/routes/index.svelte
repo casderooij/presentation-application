@@ -11,26 +11,12 @@
   let mounted = false
 
   onMount(() => {
-    projects = [
-      { title: '1' },
-      { title: '2' },
-      { title: '3' },
-      { title: '1' },
-      { title: '2' },
-      { title: '3' }
-    ]
+    projects = [{ title: '1' }, { title: '2' }, { title: '3' }]
     size = getWindowSizes()!.min
   })
 
   const reset = () => {
-    projects = [
-      { title: '1' },
-      { title: '2' },
-      { title: '3' },
-      { title: '1' },
-      { title: '2' },
-      { title: '3' }
-    ]
+    projects = [{ title: '1' }, { title: '2' }, { title: '3' }]
     size = getWindowSizes()!.min
   }
 </script>
