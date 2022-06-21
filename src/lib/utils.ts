@@ -1,27 +1,38 @@
 export type Project = any
 
+export type Position = {
+  x: number
+  y: number
+}
+
+export type Viewport = {
+  width: number
+  height: number
+}
+
 export const makeWindows = (
   projects: Project[],
+  viewport: Viewport,
   curveFunction: (theta: number) => {
-    target: { x: number; y: number }
-    offset: { x: number; y: number }
+    target: Position
     size: number
   }
 ): {
   project: Project
   position: {
-    target: { x: number; y: number }
-    offset: { x: number; y: number }
+    target: Position
+    origin: Position
   }
   size: number
 }[] => {
   const windowArray = projects.map((project, index) => {
-    const { target, offset, size } = curveFunction(index + 1 / projects.length)
+    const { target, size } = curveFunction(index + 1 / projects.length)
+    const origin = calculateOrigin(viewport, target)
     return {
       project,
       position: {
         target,
-        offset
+        origin
       },
       size
     }
@@ -30,7 +41,7 @@ export const makeWindows = (
   return windowArray
 }
 
-export const makeCurve = (width: number, height: number) => {
+export const makeCurve = ({ width, height }: Viewport) => {
   return (theta: number) => {
     const size = 100
     const padding = size * 2
@@ -39,26 +50,25 @@ export const makeCurve = (width: number, height: number) => {
     const rx = (width - padding) / 2
     const ry = (height - padding) / 2
 
-    const x = Math.round(w + rx * Math.cos(theta * 1.1) - size / 2)
-    const y = Math.round(h + ry * Math.sin(theta * 1.2) - size / 2)
-
-    const offset = getOffset(w, h, x, y)
+    const x = Math.round(
+      w + rx * Math.cos(theta * (Math.random() * 40) - 20) - size / 2
+    )
+    const y = Math.round(
+      h + ry * Math.sin(theta * (Math.random() * 40) - 20) - size / 2
+    )
 
     return {
       target: { x, y },
-      offset,
       size
     }
   }
 }
 
-const getOffset = (
-  centerX: number,
-  centerY: number,
-  x: number,
-  y: number
-): { x: number; y: number } => {
-  const vectorToCenter = [centerX - x, centerY - y]
+const calculateOrigin = (
+  { width, height }: Viewport,
+  target: Position
+): Position => {
+  const vectorToCenter = [width / 2 - target.x, height / 2 - target.y]
   const magnitude = Math.sqrt(vectorToCenter[0] ** 2 + vectorToCenter[1] ** 2)
   const normalizedVectorToCenter = [
     vectorToCenter[0] / magnitude,

@@ -5,12 +5,8 @@
     { title: '1' },
     { title: '2' },
     { title: '3' },
-    { title: '3' },
-    { title: '3' },
-    { title: '3' },
-    { title: '3' },
-    { title: '3' },
-    { title: '3' },
+    { title: '1' },
+    { title: '2' },
     { title: '3' }
   ]
 
@@ -23,5 +19,5 @@
 <input type="checkbox" bind:checked={mounted} />
 
 {#if mounted}
-  <WindowGroup {projects} {width} {height} />
+  <WindowGroup {projects} viewport={{ width, height }} />
 {/if}

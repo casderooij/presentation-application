@@ -1,17 +1,18 @@
 <script lang="ts">
   import { fade } from 'svelte/transition'
   import { fly } from 'svelte/transition'
+  import type { Position } from '$lib/utils'
 
-  export let target: { x: number; y: number }
-  export let offset: { x: number; y: number }
+  export let target: Position
+  export let origin: Position
   export let index: number
 </script>
 
 <div
   class="absolute"
   in:fly={{
-    x: offset.x,
-    y: offset.y,
+    x: origin.x,
+    y: origin.y,
     delay: 200 + index * 100
   }}
   out:fade
