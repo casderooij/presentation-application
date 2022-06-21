@@ -7,6 +7,7 @@
   export let ratio = '1 / 1'
   export let minWidth = 100
   export let maxWidth = 400
+  export let size: number
 
   const minViewPort = 320
   const maxViewPort = 1200
@@ -50,9 +51,9 @@
 
 <div
   bind:this={element}
-  class="bg-blue-500 touch-none cursor-move"
+  class="bg-white border border-black touch-none cursor-move"
   style="
-    width: {widthClamp};
+    width: {size}px;
     aspect-ratio: {ratio};
     transform: translate({$coords.x}px, {$coords.y}px);
   "
