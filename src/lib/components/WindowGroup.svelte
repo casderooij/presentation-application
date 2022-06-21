@@ -8,15 +8,21 @@
   export let size: number
 
   const curveFunc = makeCurve(viewport, size)
-  const windows = makeWindows(projects, viewport, curveFunc)
+  let windows = makeWindows(projects, viewport, curveFunc)
 </script>
 
-{#each windows as window, index}
+{#each windows as window, index (window.project.title)}
   <WindowTransition
     target={window.position.target}
     origin={window.position.origin}
     {index}
   >
-    <Window size={window.size} />
+    <Window
+      {size}
+      onClick={() => {
+        windows.splice(windows.length, 0, windows.splice(index, 1)[0])
+        windows = windows
+      }}
+    />
   </WindowTransition>
 {/each}

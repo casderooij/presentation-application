@@ -11,12 +11,20 @@
   let mounted = false
 
   onMount(() => {
-    projects = [{ title: '1' }, { title: '2' }, { title: '3' }]
+    projects = [
+      { id: 1, title: '1', focus: true },
+      { id: 2, title: '2', focus: false },
+      { id: 3, title: '3', focus: false }
+    ]
     size = getWindowSizes()!.min
   })
 
   const reset = () => {
-    projects = [{ title: '1' }, { title: '2' }, { title: '3' }]
+    projects = [
+      { id: 1, title: '1', focus: false },
+      { id: 2, title: '2', focus: true },
+      { id: 3, title: '3', focus: false }
+    ]
     size = getWindowSizes()!.min
   }
 </script>

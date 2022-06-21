@@ -5,6 +5,7 @@
   import { DragGesture } from '@use-gesture/vanilla'
 
   export let size: number
+  export let onClick: any
 
   const minViewPort = 320
   const maxViewPort = 1200
@@ -32,7 +33,8 @@
 </script>
 
 <div
+  on:pointerdown={onClick()}
   bind:this={element}
-  class="bg-red-200 touch-none cursor-move pointer-events-auto shadow-lg shadow-black/20"
-  style="width: {size}px; transform: translate({$coords.x}px, {$coords.y}px);"
+  class="bg-red-200 border-2 border-black touch-none cursor-move pointer-events-auto shadow-lg shadow-black/20"
+  style="width: {size}px; height: {size}px; transform: translate({$coords.x}px, {$coords.y}px);"
 />
