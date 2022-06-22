@@ -34,12 +34,21 @@
 </script>
 
 <div
+  tabindex="0"
   on:pointerdown={() => {
     onClick()
     isActive = true
     scale.set(1.2)
   }}
   on:pointerup={() => {
+    isActive = false
+    scale.set(1)
+  }}
+  on:focusin={() => {
+    isActive = true
+    scale.set(1.2)
+  }}
+  on:focusout={() => {
     isActive = false
     scale.set(1)
   }}
