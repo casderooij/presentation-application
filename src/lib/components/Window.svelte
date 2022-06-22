@@ -18,6 +18,7 @@
       damping: 0.15
     }
   )
+  let scale = spring(1)
   let element: HTMLElement
 
   onMount(() => {
@@ -33,8 +34,18 @@
 </script>
 
 <div
-  on:pointerdown={onClick()}
+  on:pointerdown={() => {
+    onClick()
+    isActive = true
+    scale.set(1.2)
+  }}
+  on:pointerup={() => {
+    isActive = false
+    scale.set(1)
+  }}
   bind:this={element}
-  class="bg-red-200 border-2 border-black touch-none cursor-move pointer-events-auto shadow-lg shadow-black/20"
-  style="width: {size}px; height: {size}px; transform: translate({$coords.x}px, {$coords.y}px);"
+  class="bg-slate-300 border-2 touch-none cursor-move pointer-events-auto shadow-lg shadow-black/20 {isActive
+    ? 'border-red-400'
+    : 'border-black'}"
+  style="width: {size}px; height: {size}px; transform: translate({$coords.x}px, {$coords.y}px) scale({$scale});"
 />
