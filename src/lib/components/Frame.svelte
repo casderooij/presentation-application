@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { spring } from 'svelte/motion'
-
   import { DragGesture } from '@use-gesture/vanilla'
+  import type { Frame } from '$lib/types'
+  import { reorderFrames } from '$lib/frameStore'
 
-  export let size: number
-  export let onClick: any
+  export let frame: Frame
 
   const minViewPort = 320
   const maxViewPort = 1200
@@ -36,7 +36,7 @@
 <div
   tabindex="0"
   on:pointerdown={() => {
-    onClick()
+    reorderFrames(frame)
     isActive = true
     scale.set(1.2)
   }}
@@ -56,5 +56,5 @@
   class="bg-slate-300 border-2 touch-none cursor-move pointer-events-auto shadow-lg shadow-black/20 {isActive
     ? 'border-red-400'
     : 'border-black'}"
-  style="width: {size}px; height: {size}px; transform: translate({$coords.x}px, {$coords.y}px) scale({$scale});"
+  style="width: {frame.size}px; height: {frame.size}px; transform: translate({$coords.x}px, {$coords.y}px) scale({$scale});"
 />
