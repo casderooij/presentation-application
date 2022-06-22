@@ -9,7 +9,7 @@
 </script>
 
 <div
-  class="absolute"
+  class="absolute pointer-events-none"
   in:fly={{
     x: origin.x,
     y: origin.y,
