@@ -1,62 +1,23 @@
-export type Project = any
+import type { Viewport, Position } from '$lib/types'
 
-export type Position = {
-  x: number
-  y: number
-}
-
-export type Viewport = {
-  width: number
-  height: number
-}
-
-export const getWindowSizes = () => {
-  if (typeof window === 'undefined') return
+export const getFrameSize = () => {
+  if (typeof window === 'undefined') return 0
   const mobile = window.matchMedia('(max-width: 640px)')
   const tablet = window.matchMedia('(max-width: 1280px)')
 
   if (mobile.matches) {
-    return { min: 100, max: 200 }
+    return 100
   } else if (tablet.matches) {
-    return { min: 200, max: 300 }
+    return 200
   } else {
-    return { min: 300, max: 100 }
+    return 300
   }
 }
 
-export const makeWindows = (
-  projects: Project[],
-  viewport: Viewport,
-  curveFunction: (theta: number) => {
-    target: Position
-    size: number
-  }
-): {
-  project: Project
-  position: {
-    target: Position
-    origin: Position
-  }
+export const createCurveFunction = (
+  { width, height }: Viewport,
   size: number
-}[] => {
-  const windowArray = projects.map((project, index) => {
-    const { target, size } = curveFunction(index + 1 / projects.length)
-    const origin = calculateOrigin(viewport, target)
-    return {
-      project,
-      position: {
-        target,
-        origin
-      },
-      size
-    }
-  })
-
-  return windowArray
-}
-
-export const makeCurve = ({ width, height }: Viewport) => {
-  const size = getWindowSizes()?.min ?? 0
+) => {
   return (theta: number) => {
     const padding = size * 1.5
     const w = width / 2
@@ -71,30 +32,24 @@ export const makeCurve = ({ width, height }: Viewport) => {
       h + ry * Math.sin(theta * (Math.random() * 40) - 20) - size / 2
     )
 
-    return {
-      target: { x, y },
-      size
-    }
+    return { x, y }
   }
 }
 
-const calculateOrigin = (
+export const calculateOrigin = (
   { width, height }: Viewport,
-  target: Position
+  target: Position,
+  offsetMagnitude = 40
 ): Position => {
-  const vectorToCenter = [width / 2 - target.x, height / 2 - target.y]
-  const magnitude = Math.sqrt(vectorToCenter[0] ** 2 + vectorToCenter[1] ** 2)
-  const normalizedVectorToCenter = [
-    vectorToCenter[0] / magnitude,
-    vectorToCenter[1] / magnitude
-  ]
-  const oppositeVector = [
-    -normalizedVectorToCenter[0] * 40,
-    -normalizedVectorToCenter[1] * 40
-  ]
+  const center = { x: width / 2 - target.x, y: height / 2 - target.y }
+  const magnitude = Math.sqrt(center.x ** 2 + center.y ** 2)
+  const normalizedVectorToCenter = {
+    x: center.x / magnitude,
+    y: center.y / magnitude
+  }
 
   return {
-    x: oppositeVector[0],
-    y: oppositeVector[1]
+    x: -normalizedVectorToCenter.x * offsetMagnitude,
+    y: -normalizedVectorToCenter.y * offsetMagnitude
   }
 }

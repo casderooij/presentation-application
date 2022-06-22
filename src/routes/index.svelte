@@ -1,27 +1,32 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { debounce } from 'lodash'
-  import WindowGroup from '$lib/components/WindowGroup.svelte'
+  import { frames, initFrames } from '$lib/frameStore'
 
-  let projects: any[] = []
+  import FrameTransition from '$lib/components/FrameTransition.svelte'
+  import Frame from '$lib/components/Frame.svelte'
 
   let width: number, height: number
-  let mounted = false
+  let initialized = {}
 
   onMount(() => {
-    projects = [
-      { id: 1, title: '1', focus: true },
+    const projects = [
+      { id: 1, title: '1', focus: false },
       { id: 2, title: '2', focus: false },
       { id: 3, title: '3', focus: false }
     ]
+    initFrames(projects, { width, height })
+    initialized = {}
   })
 
   const reset = () => {
-    projects = [
+    const projects = [
       { id: 1, title: '1', focus: false },
-      { id: 2, title: '2', focus: true },
+      { id: 2, title: '2', focus: false },
       { id: 3, title: '3', focus: false }
     ]
+    initFrames(projects, { width, height })
+    initialized = {}
   }
 </script>
 
@@ -31,6 +36,10 @@
   on:resize={debounce(reset, 300)}
 />
 
-{#key projects}
-  <WindowGroup {projects} viewport={{ width, height }} />
+{#key initialized}
+  {#each $frames as frame, index (frame.project.title)}
+    <FrameTransition position={frame.position} {index}>
+      <Frame {frame} />
+    </FrameTransition>
+  {/each}
 {/key}
