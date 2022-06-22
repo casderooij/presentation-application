@@ -5,9 +5,8 @@
 
   export let viewport: Viewport
   export let projects: any[]
-  export let size: number
 
-  const curveFunc = makeCurve(viewport, size)
+  const curveFunc = makeCurve(viewport)
   let windows = makeWindows(projects, viewport, curveFunc)
 </script>
 
@@ -18,7 +17,7 @@
     {index}
   >
     <Window
-      {size}
+      size={window.size}
       onClick={() => {
         windows.splice(windows.length, 0, windows.splice(index, 1)[0])
         windows = windows

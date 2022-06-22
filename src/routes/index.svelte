@@ -1,11 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { debounce } from 'lodash'
-  import { getWindowSizes } from '$lib/utils'
   import WindowGroup from '$lib/components/WindowGroup.svelte'
 
   let projects: any[] = []
-  let size: number
 
   let width: number, height: number
   let mounted = false
@@ -16,7 +14,6 @@
       { id: 2, title: '2', focus: false },
       { id: 3, title: '3', focus: false }
     ]
-    size = getWindowSizes()!.min
   })
 
   const reset = () => {
@@ -25,7 +22,6 @@
       { id: 2, title: '2', focus: true },
       { id: 3, title: '3', focus: false }
     ]
-    size = getWindowSizes()!.min
   }
 </script>
 
@@ -36,5 +32,5 @@
 />
 
 {#key projects}
-  <WindowGroup {projects} viewport={{ width, height }} {size} />
+  <WindowGroup {projects} viewport={{ width, height }} />
 {/key}
