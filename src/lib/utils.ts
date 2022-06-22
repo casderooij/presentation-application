@@ -55,7 +55,8 @@ export const makeWindows = (
   return windowArray
 }
 
-export const makeCurve = ({ width, height }: Viewport, size: number) => {
+export const makeCurve = ({ width, height }: Viewport) => {
+  const size = getWindowSizes()?.min ?? 0
   return (theta: number) => {
     const padding = size * 1.5
     const w = width / 2
